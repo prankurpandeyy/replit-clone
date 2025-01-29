@@ -4,6 +4,7 @@ import { useCopilotAction, useCopilotReadable } from "@copilotkit/react-core";
 import { CopilotPopup } from "@copilotkit/react-ui";
 import ScreenOne from "./components/ScreenOne";
 import FileExplorer from "./components/FileExplorer";
+import Layout from "./components/Layout";
 
 function Page() {
   const [files, setFiles] = useState([]);
@@ -117,6 +118,7 @@ function Page() {
     fetchFiles();
   }, []);
 
+  // app/page.js
   const fetchFiles = async () => {
     try {
       const response = await fetch("/api/files", {
@@ -172,12 +174,64 @@ function Page() {
     }
   };
 
+  const handleRenameFile = async (oldFilename, newFilename) => {
+    try {
+      await fetch("/api/files", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: "rename",
+          filename: oldFilename,
+          newFilename,
+        }),
+      });
+      fetchFiles();
+    } catch (error) {
+      console.error("Error renaming file:", error);
+    }
+  };
+
+  const handleDeleteFile = async (filename) => {
+    try {
+      await fetch("/api/files", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: "delete",
+          filename,
+        }),
+      });
+      fetchFiles();
+    } catch (error) {
+      console.error("Error deleting file:", error);
+    }
+  };
+
+  const handleCreateFile = async (filename) => {
+    try {
+      await fetch("/api/files", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: "create",
+          filename,
+          content: "", // Start with empty content
+        }),
+      });
+      fetchFiles();
+    } catch (error) {
+      console.error("Error creating file:", error);
+    }
+  };
   return (
     <div className="h-screen flex">
       <FileExplorer
         files={files}
         onFileSelect={handleFileSelect}
         currentFile={currentFile}
+        onRename={handleRenameFile}
+        onDelete={handleDeleteFile}
+        onCreate={handleCreateFile}
       />
       <div className="flex-1 flex flex-col">
         <ScreenOne code={code} onChange={handleCodeChange} />

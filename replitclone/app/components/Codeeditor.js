@@ -1,10 +1,11 @@
+// components/ScreenOne.js
 import React from "react";
-import Editor from "@monaco-editor/react";
+import { Editor } from "@monaco-editor/react";
 
-function CodeEditor() {
+const ScreenOne = ({ code, onChange }) => {
   return (
-    <div>
-      <h2 className="text-xl font-semibold mb-4">Code Input</h2>
+    <div className="bg-gray-900 p-4 h-full">
+      <h2 className="text-xl text-green-400 font-semibold mb-4">Code Input</h2>
       <Editor
         height="80vh"
         defaultLanguage="javascript"
@@ -18,6 +19,6 @@ function CodeEditor() {
       />
     </div>
   );
-}
+};
 
-export default CodeEditor;
+export default ScreenOne;
