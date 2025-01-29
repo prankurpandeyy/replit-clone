@@ -21,6 +21,8 @@
 
 # production
 /build
+#filedb.json
+fileDB.json
 
 # misc
 .DS_Store
