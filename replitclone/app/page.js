@@ -276,7 +276,11 @@
 // export default Page;
 "use client";
 import React, { useState, useEffect } from "react";
-import { useCopilotAction, useCopilotReadable } from "@copilotkit/react-core";
+import {
+  CopilotKit,
+  useCopilotAction,
+  useCopilotReadable,
+} from "@copilotkit/react-core";
 import { CopilotPopup } from "@copilotkit/react-ui";
 import ScreenOne from "./components/ScreenOne";
 import FileExplorer from "./components/FileExplorer";
